@@ -1,0 +1,5 @@
+<% @tasks.each do |t| %>
+  <%=link_to "#{t.name}", project_task_path(t.id), :class => "btn btn-outline-primary" %>
+  <br/>
+<% end %>
+<p>show, all tasks</p>
