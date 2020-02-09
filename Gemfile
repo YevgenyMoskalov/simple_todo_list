@@ -68,5 +68,6 @@ gem 'dotenv-rails'
 gem 'recaptcha'
 
 gem 'bootstrap'
+gem 'bootstrap-sass'
 
 gem 'jquery-rails'

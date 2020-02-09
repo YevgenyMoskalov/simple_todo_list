@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   get 'account/index'
-  # get 'projects/index'
-  # get 'task/index'
+  get "projects/new_modal" => 'projects#new_modal', :as => :new_modal
   resources :projects do
     resources :tasks
   end
