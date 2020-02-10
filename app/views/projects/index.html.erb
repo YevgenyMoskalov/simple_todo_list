@@ -1,17 +1,67 @@
-<% @projects.each do |p| %>
-  <h1 class = "btn btn-outline-primary projectAction"><%= "#{p.name}" %></h1>
-  <br/>
-  <%@tasks = Task.where(project_id: p.id).all %>
-  <% @tasks.each do |t| %>
-    <h3 class = "btn btn-outline-primary taskAction"><%= "#{t.description}" %></h3>
-  <% end %>
-  <br/>
+<div class="container">
+  <div class="text-center">
+    <h1>SIMPLE TODO LIST</h1>
+    <h3>FROM RUBY GARAGE</h3>
+  </div>
+  <% @projects.each do |p| %>
+  <div class="project mb-3 border-bottom m-5">
+    <h5 class=" mb-2 bg-primary text-white "><img src="https://img.icons8.com/ios/30/000000/google-sites.png" class="p-2"><%= "#{p.name}" %>
+      <div class="btn-group p-2" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-link">
+          <i class="fas fa-pencil-alt text-white"></i>
+        </button>
+        <span class="separator"></span>
+        <button type="button" class="btn btn-link">
+          <i class="fas fa-trash-alt text-white"></i>
+        </button>
+      </div>
+    </h5>
+    <table class="table table-bordered table-hover">
+      <div class="input-group p-3 mb-3 bg-light" >
+        <i class="p-2 fas fa-plus"></i>
+        <input type="text" class="chat-input form-control">
+        <div class="input-group-append">
+          <button class="btn btn-success chat-input">Add Task</button>
+        </div>
+      </div>
+      <% @tasks = Task.where(project_id: p.id).all %>
+      <tbody>
+      <% @tasks.each do |t| %>
+        <tr>
+          <td class="checkBox">
+            <div class="pretty p-image p-plain" style="margin-right: 2px">
+              <input type="checkbox" />
+              <div class="state">
+                <%= image_tag("check.png", class: "image") %>
+                <label></label>
+              </div>
+            </div>
+          </td>
+          <td><%= "#{t.description}" %></td>
+          <th scope="col">
+            <button type="button" class="btn btn-link">
+              <i class="fas fa-pencil-alt "></i>
+            </button>
+            <span class="separator"></span>
+            <button type="button" class="btn btn-link">
+              <i class="fas fa-trash-alt "></i>
+            </button>
+          </th>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
 <% end %>
-<!--ебусь с модалками-->
-<%= link_to 'Add user', new_modal_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary btn-lg'}  %>
-<div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content"></div>
+
+  <div class="text-center">
+    <%= link_to '<i class="p-1 fas fa-plus"></i>  Add TODO List'.html_safe, new_modal_path, {:remote => true, 'data-toggle' => "modal", 'data-target' => '#projectModal-window', class: 'btn btn-primary btn-lg '} %>
+    <div id="projectModal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content"></div>
+      </div>
+    </div>
+    <p class="text-center text-white mt-3">© Ruby Garage</p>
   </div>
 </div>
 
