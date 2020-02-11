@@ -4,9 +4,10 @@
     <h3>FROM RUBY GARAGE</h3>
   </div>
   <% @projects.each do |p| %>
-  <div class="project mb-3 border-bottom m-5">
-    <h5 class=" mb-2 bg-primary text-white "><img src="https://img.icons8.com/ios/30/000000/google-sites.png" class="p-2"><%= "#{p.name}" %>
-      <div class="btn-group p-2" role="group" aria-label="Basic example">
+  <div class="project border-bottom m-5">
+    <div class="bg-primary project-heading" style="display: flex">
+      <h5 class=" text-white mr-auto"><img src="https://img.icons8.com/ios/30/000000/google-sites.png" class="p-2"><%= "#{p.name}" %></h5>
+      <div class="p-2 project-buttons">
         <button type="button" class="btn btn-link">
           <i class="fas fa-pencil-alt text-white"></i>
         </button>
@@ -15,13 +16,16 @@
           <i class="fas fa-trash-alt text-white"></i>
         </button>
       </div>
-    </h5>
+    </div>
     <table class="table table-bordered table-hover">
-      <div class="input-group p-3 mb-3 bg-light" >
+      <div class="input-group p-3 bg-light" >
         <i class="p-2 fas fa-plus"></i>
         <input type="text" class="chat-input form-control">
         <div class="input-group-append">
-          <button class="btn btn-success chat-input">Add Task</button>
+            <input class="chat-input form-control input-group-append" type="datetime-local" value="" id="example-datetime-local-input" style="border-radius: 0">
+        </div>
+        <div class="input-group-append">
+          <button class="btn btn-success chat-input border-success border-left-0">Add Task</button>
         </div>
       </div>
       <% @tasks = Task.where(project_id: p.id).all %>
@@ -37,15 +41,26 @@
               </div>
             </div>
           </td>
-          <td><%= "#{t.description}" %></td>
-          <th scope="col">
-            <button type="button" class="btn btn-link">
-              <i class="fas fa-pencil-alt "></i>
-            </button>
-            <span class="separator"></span>
-            <button type="button" class="btn btn-link">
-              <i class="fas fa-trash-alt "></i>
-            </button>
+          <td class="description"><%= "#{t.description}" %></td>
+          <th scope="col" style="width: 165px" class="th-hovering">
+            <div class="task-buttons">
+              <div class="b-flex btn-group-vertical" role="group">
+                <button type="button" class="btn-up">
+                  ▲
+                </button>
+                <button type="button" class="btn-down">
+                  ▼
+                </button>
+              </div>
+              <span class="separator"></span>
+              <button type="button" class="btn btn-link">
+                <i class="fas fa-pencil-alt "></i>
+              </button>
+              <span class="separator"></span>
+              <button type="button" class="btn btn-link">
+                <i class="fas fa-trash-alt "></i>
+              </button>
+            </div>
           </th>
         </tr>
       <% end %>
@@ -64,4 +79,3 @@
     <p class="text-center text-white mt-3">© Ruby Garage</p>
   </div>
 </div>
-
