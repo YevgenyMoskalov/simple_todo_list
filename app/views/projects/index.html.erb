@@ -1,10 +1,10 @@
 <div class="container">
   <div class="text-center">
-    <h1>SIMPLE TODO LIST</h1>
+    <h1 class="mt-3">SIMPLE TODO LIST</h1>
     <h3>FROM RUBY GARAGE</h3>
   </div>
   <% @projects.each do |p| %>
-  <div class="project border-bottom m-5">
+  <div class="project border-bottom m-5" data-project_id="<%= p.id %>">
     <div class="bg-primary project-heading" style="display: flex">
       <h5 class=" text-white mr-auto"><img src="https://img.icons8.com/ios/30/000000/google-sites.png" class="p-2"><%= "#{p.name}" %></h5>
       <div class="p-2 project-buttons">
@@ -12,7 +12,7 @@
           <i class="fas fa-pencil-alt text-white"></i>
         </button>
         <span class="separator"></span>
-        <button type="button" class="btn btn-link">
+        <button type="button" class="btn btn-link deleteProjectAction">
           <i class="fas fa-trash-alt text-white"></i>
         </button>
       </div>
@@ -20,18 +20,21 @@
     <table class="table table-bordered table-hover">
       <div class="input-group p-3 bg-light" >
         <i class="p-2 fas fa-plus"></i>
-        <input type="text" class="chat-input form-control">
-        <div class="input-group-append">
-            <input class="chat-input form-control input-group-append" type="datetime-local" value="" id="example-datetime-local-input" style="border-radius: 0">
-        </div>
-        <div class="input-group-append">
-          <button class="btn btn-success chat-input border-success border-left-0">Add Task</button>
-        </div>
+        <%= form_for Task.new do |t| %>
+          <%= t.text_field :description, {class: 'chat-input form-control'} %>
+            <div class="input-group-append">
+              <input class="chat-input form-control input-group-append" type="datetime-local" style="border-radius: 0" name="task[deadline]">
+            </div>
+          <%= t.hidden_field :project_id, :value => p.id %>
+          <div class="input-group-append">
+            <%= t.submit "Add Task", {class: "btn btn-success chat-input border-success border-left-0 addTaskAction"} %>
+          </div>
+        <% end %>
       </div>
       <% @tasks = Task.where(project_id: p.id).all %>
       <tbody>
       <% @tasks.each do |t| %>
-        <tr>
+        <tr class="task" data-task_id="<%= t.id %>">
           <td class="checkBox">
             <div class="pretty p-image p-plain" style="margin-right: 2px">
               <input type="checkbox" />
@@ -57,7 +60,7 @@
                 <i class="fas fa-pencil-alt "></i>
               </button>
               <span class="separator"></span>
-              <button type="button" class="btn btn-link">
+              <button type="button" class="btn btn-link deleteTaskAction">
                 <i class="fas fa-trash-alt "></i>
               </button>
             </div>
@@ -68,7 +71,6 @@
     </table>
   </div>
 <% end %>
-
   <div class="text-center">
     <%= link_to '<i class="p-1 fas fa-plus"></i>  Add TODO List'.html_safe, new_modal_path, {:remote => true, 'data-toggle' => "modal", 'data-target' => '#projectModal-window', class: 'btn btn-primary btn-lg '} %>
     <div id="projectModal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

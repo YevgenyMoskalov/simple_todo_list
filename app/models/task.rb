@@ -1,5 +1,4 @@
 class Task < ApplicationRecord
   belongs_to :project
-  validates :description, :status, presence: true, length: { maximum: 255,
-                                                            too_long: '%{count} characters is the maximum allowed' }
+  validates :deadline, :description, :status, presence: true
 end
