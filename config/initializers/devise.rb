@@ -11,7 +11,7 @@ Devise.setup do |config|
   # config.secret_key = '7af79d23d90f5f469d433cbec8aa1c8fe4f3b7b5334def68cf39caf93e28b6a33181d1f437ed8b8e4d09056e1516320e8106df22ad857a192a843bd2fa37596c'
 
   # ==> Controller configuration
-  # Configure the parent class to the devise controllers.
+  # Configure the parent class to the devise controller.
   # config.parent_controller = 'DeviseController'
 
   # ==> Mailer Configuration
